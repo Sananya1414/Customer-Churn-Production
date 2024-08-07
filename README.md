@@ -59,3 +59,38 @@ model = keras.Sequential([
     keras.layers.Dense(15, activation='relu'),
     keras.layers.Dense(1, activation='sigmoid')
 ])
+## Training The Model
+
+model.compile(optimizer='adam',
+              loss='binary_crossentropy',
+              metrics=['accuracy'])
+
+model.fit(X_train, y_train, epochs=100)
+
+
+## Evaluation
+loss, accuracy = model.evaluate(X_test, y_test)
+print(f"Test Loss: {loss}")
+print(f"Test Accuracy: {accuracy}")
+
+# Plotting the confusion matrix
+y_pred_prob = model.predict(X_test)
+y_pred = (y_pred_prob > 0.5).astype(int).flatten()
+cm = tf.math.confusion_matrix(labels=y_test, predictions=y_pred)
+
+plt.figure(figsize=(10, 7))
+sn.heatmap(cm, annot=True, fmt='d', cmap='Blues')
+plt.xlabel('Predicted')
+plt.ylabel('Truth')
+plt.title('Confusion Matrix')
+plt.show()
+
+## Running The Model
+
+git clone https://github.com/your-username/customer-churn-prediction.git
+cd customer-churn-prediction
+
+
+## Conclusion
+This project demonstrates the application of deep learning techniques to predict customer churn. By leveraging an Artificial Neural Network, we can capture complex patterns in the data, leading to accurate predictions. The project showcases the end-to-end process of data preprocessing, model building, training, evaluation, and visualization.
+
